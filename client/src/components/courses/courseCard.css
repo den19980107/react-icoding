@@ -1,0 +1,30 @@
+.box {
+   background:#ccc;
+   position:relative;
+   overflow:hidden;
+   margin: 0px;
+}
+.box:after {
+   padding-top: 56.25%;
+   content:"";
+   display: block;
+}
+.img {
+   position:absolute;
+   top:0;
+   bottom:0;
+   right:0;
+   left:0;
+   max-width:100%;
+   margin:auto;
+}
+
+.card-text {
+   overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-line-clamp: 3;
+   -webkit-box-orient: vertical;
+   margin-bottom: 1rem;
+   height:4rem;
+}
