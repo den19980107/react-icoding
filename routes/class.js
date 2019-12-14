@@ -938,7 +938,7 @@ router.get('/:classID/showUnit/:unitID', ensureAuthenticated, function (req, res
 })
 
 //新增講義
-router.post('/unit/addLecture', ensureAuthenticated, function (req, res) {
+router.post('/unit/addLecture', function (req, res) {
 	req.checkBody('title', '講義標題不得為空').notEmpty();
 	req.checkBody('body', '講義內容不得為空').notEmpty();
 	let errors = req.validationErrors();
@@ -958,17 +958,17 @@ router.post('/unit/addLecture', ensureAuthenticated, function (req, res) {
 		chapter.chapterName = req.body.title;
 		chapter.belongUnit = req.body.unitID;
 		chapter.body = req.body.body;
-		if(req.body.pdf){
+		if (req.body.pdf) {
 			chapter.pdf = req.body.pdf
 		}
 		chapter.save(function (err) {
 			if (err) {
 				console.log(err);
-				res.status(500).send({message:"新增失敗"});
+				res.status(500).send({ message: "新增失敗" });
 
 			} else {
 				//req.flash('success', "新增成功");
-				res.status(200).send({message:"新增成功"});
+				res.status(200).send({ message: "新增成功" });
 			}
 		});
 
@@ -995,10 +995,10 @@ router.post('/saveEditedChapter', function (req, res) {
 
 	let myquery = { _id: req.body.chapterID };
 	let newvalues;
-	if(req.body.pdf.length != 0){
-		newvalues = { $set: { chapterName: req.body.chapterName, body: req.body.body,pdf: req.body.pdf} }
-	}else{
-		newvalues = { $set: { chapterName: req.body.chapterName, body: req.body.body} }
+	if (req.body.pdf.length != 0) {
+		newvalues = { $set: { chapterName: req.body.chapterName, body: req.body.body, pdf: req.body.pdf } }
+	} else {
+		newvalues = { $set: { chapterName: req.body.chapterName, body: req.body.body } }
 	}
 	Chapter.updateOne(myquery, newvalues, function (err) {
 		if (err) {

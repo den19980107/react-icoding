@@ -194,13 +194,13 @@ router.get('/login', function (req, res) {
         let url = req.url.split('/')[2].replace("?r=", "");
         //console.log("haveNext url = "+url);
 
-        res.render('login', {
-            nextURL: url.replace(new RegExp('%2F', 'g'), '/')
-        });
+        // res.render('login', {
+        //     nextURL: url.replace(new RegExp('%2F', 'g'), '/')
+        // });
     } else {
-        res.render('login', {
-            nextURL: null
-        });
+        // res.render('login', {
+        //     nextURL: null
+        // });
     }
 });
 

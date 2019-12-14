@@ -13,7 +13,7 @@ class chapterList extends Component {
          return (
             <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }}>
                {this.props.chapters.map(chapter => (
-                  <ChapterListItem key={chapter._id} chapter={chapter}></ChapterListItem>
+                  <ChapterListItem key={chapter._id} chapter={chapter} reflashChapter={this.props.reflashChapter}></ChapterListItem>
                ))}
             </div>
          );
