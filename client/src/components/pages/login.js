@@ -1,14 +1,28 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { login } from '../../actions/authorizeActions';
+
 import { Input, Card, Button } from 'antd';
 import Spacer from '../util/spacer';
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
 
-class login extends Component {
+class Login extends Component {
    state = {
       username: "",
       password: ""
    }
+
+   // 當跟 reducer 執行完 login 之後 現在這個 component 的 porps.user 會變動
+   // 當有變動時 表時 login 完成 所以把 user 的 data 往上傳到 app component
+   componentWillReceiveProps(nextProps) {
+      if (nextProps.error || !nextProps.user) {
+         alert(nextProps.error)
+      } else {
+         this.props.setUserData(nextProps.user)
+      }
+   }
+
    setUsername = (e) => {
       this.setState({ username: e.target.value })
    }
@@ -16,18 +30,7 @@ class login extends Component {
       this.setState({ password: e.target.value })
    }
    onLogin = () => {
-      axios.post('/users/login', {
-         username: this.state.username,
-         password: this.state.password
-      })
-         .then((res) => {
-            let user = res.data.user
-            this.props.setUserData(user)
-            this.props.history.push("/");
-         })
-         .catch((error) => {
-            console.log(error.response.data.message)
-         })
+      this.props.login(this.state);
    }
 
    render() {
@@ -51,4 +54,9 @@ class login extends Component {
    }
 }
 
-export default withRouter(login);
+const mapStateToProps = state => ({
+   user: state.authorize.user,
+   error: state.authorize.error
+})
+
+export default connect(mapStateToProps, { login })(withRouter(Login));
