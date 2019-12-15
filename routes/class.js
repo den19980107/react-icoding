@@ -1037,14 +1037,12 @@ router.delete('/deletechapter/:chapterID', ensureAuthenticated, function (req, r
 	})
 })
 
-//顯示講義內容
-router.get('/showChapter/:id', ensureAuthenticated, function (req, res) {
+//get講義內容
+router.get('/getChapter/:id', function (req, res) {
 	let query = {
 		_id: req.params.id
 	}
 	Chapter.findById(query, function (err, chapter) {
-		//console.log(chapter);
-
 		if (err || chapter == null) {
 			res.render('notExist', {
 				title: "喔喔！此講義不存在...",
@@ -1078,12 +1076,12 @@ router.get('/showChapter/:id', ensureAuthenticated, function (req, res) {
 								findchaptercommentsID.push(comments[i].userID.toString());
 							}
 							User.find({ _id: findchaptercommentsID }, function (err, users) {
-								res.render('chapter', {
+								res.json({
 									chapter: chapter,
 									comments: comments,
 									classinfo: classinfo,
 									users: users
-								});
+								})
 							})
 						})
 					})

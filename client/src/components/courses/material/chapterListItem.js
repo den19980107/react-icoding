@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from "react-router-dom";
 import { Icon, Menu, Dropdown, Modal } from 'antd';
 import axios from 'axios';
 
@@ -69,6 +70,7 @@ class chapterListItem extends Component {
    }
    showChapter = () => {
       console.log("showChapter")
+      this.props.history.push(`/chapter/${this.state.id}`)
    }
 
    render() {
@@ -120,4 +122,4 @@ class chapterListItem extends Component {
    }
 }
 
-export default chapterListItem;
+export default withRouter(chapterListItem);

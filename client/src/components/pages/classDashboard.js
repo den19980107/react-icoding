@@ -15,7 +15,7 @@ import axios from 'axios';
 
 
 import { Layout, Menu, Icon } from 'antd';
-const { Header, Content, Footer, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
 class classDashboard extends Component {
    constructor(props) {

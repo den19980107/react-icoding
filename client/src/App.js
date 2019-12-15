@@ -82,6 +82,8 @@ class App extends Component {
             <Route path="/register" component={Register}></Route>
             {/* 顯示課程首頁 */}
             <Route path="/class/:id" component={ClassDashboard}></Route>
+            {/* 顯示講義 */}
+            <Route path="/chapter/:id" component={Chapter}></Route>
           </Router >
         </Provider>
       );
