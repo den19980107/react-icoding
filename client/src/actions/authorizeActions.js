@@ -21,6 +21,12 @@ export const login = ({ username, password }) => dispatch => {
 
 }
 
+export const logout = () => dispatch => {
+   dispatch({
+      type: LOGOUT
+   })
+}
+
 export const getUser = () => dispatch => {
    console.log("getUser");
    dispatch({

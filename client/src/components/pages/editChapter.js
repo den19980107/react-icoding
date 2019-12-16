@@ -81,7 +81,7 @@ class editChapter extends Component {
 
    render() {
       return (
-         <div className="container mt-2">
+         <div className="container mt-2" style={{ marginBottom: "10rem" }}>
             <div style={{ display: "flex", justifyContent: "space-between" }} className="pt-4 pb-4">
                <h3>編輯講義</h3>
                {this.props.user._id == this.state.classinfo.teacher &&

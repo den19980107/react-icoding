@@ -19,6 +19,11 @@ export default function (state = initialState, action) {
             error: action.payload
          }
       case LOGOUT:
+         initialState.user = null
+         return {
+            ...state,
+            user: initialState.user
+         }
          break;
       case GET_USER:
          return {

@@ -15,7 +15,8 @@ import Register from './components/pages/register';
 import ClassDashboard from './components/pages/classDashboard';
 import Chapter from './components/pages/chapter'
 import EditChapter from './components/pages/editChapter'
-
+import Profile from './components/pages/profile';
+import Notes from './components/pages/notes';
 // components
 import Header from './components/layout/header';
 
@@ -32,8 +33,8 @@ class App extends Component {
   // }
 
 
-  setUserData = (user) => {
-    this.setState({ user: user, isLogin: true })
+  setUserData = (user, isLogin) => {
+    this.setState({ user: user, isLogin: isLogin })
   }
 
   render() {
@@ -68,7 +69,7 @@ class App extends Component {
       return (
         <Provider store={store}>
           <Router history={History}>
-            <Header isLogin={this.state.isLogin}></Header>
+            <Header isLogin={this.state.isLogin} setUserData={this.setUserData}></Header>
             {/* 首頁 */}
             <Route exact path="/" component={Index}></Route>
             {/* 總開課清單 */}
@@ -87,6 +88,12 @@ class App extends Component {
             <Route path="/chapter/:id" component={Chapter}></Route>
             {/* 編輯講義 */}
             <Route path="/editChapter/:id" component={EditChapter}></Route>
+
+            {/* 個人資料 */}
+            <Route path="/profile" component={() => <Profile user={this.state.user} setUserdata={this.state.setUserData}></Profile>}></Route>
+            {/* 筆記 */}
+            <Route path="/notes" component={Notes}></Route>
+
           </Router >
         </Provider>
       );

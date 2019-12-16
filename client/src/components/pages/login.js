@@ -19,7 +19,7 @@ class Login extends Component {
       if (nextProps.error || !nextProps.user) {
          alert(nextProps.error)
       } else {
-         this.props.setUserData(nextProps.user)
+         this.props.setUserData(nextProps.user, true)
       }
    }
 
