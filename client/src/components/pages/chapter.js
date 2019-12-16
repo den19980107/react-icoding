@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Comment, Avatar, Form, Button, List, Input } from 'antd';
+import { Comment, Avatar, Form, Button, List, Input, Modal } from 'antd';
 import moment from 'moment';
 
 // redux
@@ -10,23 +10,35 @@ import axios from 'axios';
 
 const { TextArea } = Input;
 
-const CommentList = ({ comments }) => (
+const CommentList = ({ comments, user, deleteComment }) => (
    <List
       dataSource={comments}
-      header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+      header={`${comments.length} 則留言`}
       itemLayout="horizontal"
-      renderItem={props => <Comment {...props} avatar={<Avatar icon="user" />} />}
+      renderItem={props =>
+         <List.Item
+            actions={(props.authorId == user._id) ? [<a key="list-loadmore-edit" onClick={(e) => deleteComment(props.id)}>刪除</a>] : ""}
+         >
+            <Comment
+               style={{ width: "100%" }}
+               author={props.author}
+               content={props.content}
+               datetime={props.datetime}
+               avatar={<Avatar icon="user" />}
+            />
+         </List.Item>
+      }
    />
 );
 
 const Editor = ({ onChange, onSubmit, submitting, value }) => (
    <div>
       <Form.Item>
-         <TextArea rows={4} onChange={onChange} value={value} />
+         <TextArea rows={2} onChange={onChange} value={value} />
       </Form.Item>
       <Form.Item>
          <Button htmlType="submit" loading={submitting} onClick={onSubmit} type="primary">
-            Add Comment
+            新增留言
       </Button>
       </Form.Item>
    </div>
@@ -64,6 +76,8 @@ class chapter extends Component {
       let comments = []
       res.data.comments.forEach(comment => {
          comments.push({
+            id: comment._id,
+            authorId: comment.userID,
             author: comment.userName,
             avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
             content: comment.body,
@@ -103,11 +117,27 @@ class chapter extends Component {
       });
    };
 
+   deleteComment = (id) => {
+      axios.get(`/SDC/deleteChapterComment/${this.props.id}/${id}`)
+         .then((res) => {
+            Modal.success({
+               content: '刪除成功！',
+            });
+            this.reflashChapter()
+         })
+         .catch((error) => {
+            Modal.error({
+               title: '刪除失敗！',
+               content: '系統發生問題...',
+            });
+         })
+   }
+
    render() {
       const { comments, submitting, commentValue } = this.state;
       return (
          <div className="container mt-2">
-            <h3>{this.state.chapter.chapterName}</h3>
+            <h3 className="pt-4 pb-4">{this.state.chapter.chapterName}</h3>
             <div dangerouslySetInnerHTML={{ __html: this.state.chapter.body }}></div>
             <hr></hr>
             <Comment
@@ -125,7 +155,7 @@ class chapter extends Component {
                   />
                }
             />
-            {comments.length > 0 && <CommentList comments={comments} />}
+            {comments.length > 0 && <CommentList user={this.props.user} deleteComment={this.deleteComment} comments={comments} />}
 
          </div>
       );

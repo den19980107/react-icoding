@@ -164,9 +164,9 @@ router.get('/user/:uid/comment/chapter/:cid/body/:body', ensureAuthenticated, fu
 router.get('/deleteChapterComment/:chapterID/:commentID', function (req, res) {
     studentCommentChapter.remove({ _id: req.params.commentID }, function (err) {
         if (err) {
-            console.log(err);
+            res.sendStatus(500)
         }
-        res.redirect('/class/showChapter/' + req.params.chapterID)
+        res.sendStatus(200)
     })
 })
 //使用者對影片留言
