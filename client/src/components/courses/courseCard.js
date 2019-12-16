@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Icon, Avatar, Button } from 'antd';
 import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
-import './courseCard.css'
+import '../style/courseCard.css';
 const { Meta } = Card;
 class courseCard extends Component {
    constructor(props) {
@@ -43,7 +43,6 @@ class courseCard extends Component {
             ]}
          >
             <Meta
-               avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                title={this.state.className}
                description={<p className="card-text">{this.state.outline}</p>}
             />
