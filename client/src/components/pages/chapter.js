@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Comment, Avatar, Form, Button, List, Input, Modal } from 'antd';
+import { withRouter } from "react-router-dom";
+import { Comment, Avatar, Form, Button, List, Input, Modal, Icon } from 'antd';
 import moment from 'moment';
 
 // redux
@@ -17,7 +18,7 @@ const CommentList = ({ comments, user, deleteComment }) => (
       itemLayout="horizontal"
       renderItem={props =>
          <List.Item
-            actions={(props.authorId == user._id) ? [<a key="list-loadmore-edit" onClick={(e) => deleteComment(props.id)}>刪除</a>] : ""}
+            actions={(props.authorId === user._id) ? [<a key="list-loadmore-edit" onClick={(e) => deleteComment(props.id)}>刪除</a>] : ""}
          >
             <Comment
                style={{ width: "100%" }}
@@ -133,11 +134,20 @@ class chapter extends Component {
          })
    }
 
+   editChapter = () => {
+      this.props.history.push(`/editChapter/${this.state.id}`)
+   }
+
    render() {
       const { comments, submitting, commentValue } = this.state;
       return (
          <div className="container mt-2">
-            <h3 className="pt-4 pb-4">{this.state.chapter.chapterName}</h3>
+            <div style={{ display: "flex", justifyContent: "space-between" }} className="pt-4 pb-4">
+               <h3>{this.state.chapter.chapterName}</h3>
+               {this.props.user._id == this.state.classinfo.teacher &&
+                  <Button type="info" style={{ background: "#ccc" }} onClick={this.editChapter}><Icon type="edit" />編輯講義</Button>
+               }
+            </div>
             <div dangerouslySetInnerHTML={{ __html: this.state.chapter.body }}></div>
             <hr></hr>
             <Comment
@@ -166,4 +176,4 @@ const mapStateToProps = state => ({
    user: state.authorize.user
 })
 
-export default connect(mapStateToProps, { getUser })(chapter);
+export default connect(mapStateToProps, { getUser })(withRouter(chapter));

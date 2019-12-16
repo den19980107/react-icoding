@@ -14,9 +14,10 @@ import Login from './components/pages/login';
 import Register from './components/pages/register';
 import ClassDashboard from './components/pages/classDashboard';
 import Chapter from './components/pages/chapter'
+import EditChapter from './components/pages/editChapter'
 
 // components
-import Header from './components/header/header';
+import Header from './components/layout/header';
 
 class App extends Component {
   state = {
@@ -84,6 +85,8 @@ class App extends Component {
             <Route path="/class/:id" component={ClassDashboard}></Route>
             {/* 顯示講義 */}
             <Route path="/chapter/:id" component={Chapter}></Route>
+            {/* 編輯講義 */}
+            <Route path="/editChapter/:id" component={EditChapter}></Route>
           </Router >
         </Provider>
       );
@@ -101,9 +104,5 @@ class App extends Component {
     }
   }
 }
-
-const mapStateToProps = state => ({
-  user: state.authorize.user
-})
 
 export default App;
