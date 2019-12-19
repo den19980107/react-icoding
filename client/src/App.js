@@ -15,6 +15,8 @@ import Register from './components/pages/register';
 import ClassDashboard from './components/pages/classDashboard';
 import Chapter from './components/pages/chapter'
 import EditChapter from './components/pages/editChapter'
+import Video from './components/pages/video';
+
 import Profile from './components/pages/profile';
 import Notes from './components/pages/notes';
 // components
@@ -88,6 +90,9 @@ class App extends Component {
             <Route path="/chapter/:id" component={Chapter}></Route>
             {/* 編輯講義 */}
             <Route path="/editChapter/:id" component={EditChapter}></Route>
+            {/* 顯示影片 */}
+            <Route path="/video/:id" component={Video}></Route>
+
 
             {/* 個人資料 */}
             <Route path="/profile" component={() => <Profile user={this.state.user} setUserdata={this.state.setUserData}></Profile>}></Route>

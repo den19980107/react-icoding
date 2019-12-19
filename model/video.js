@@ -17,9 +17,14 @@ const VideoSchema = mongoose.Schema({
     vtime: {
         type: String,
         require: true
-    },postTime:{
-        type:String,
-        require:true
+    },
+    postTime: {
+        type: String,
+        require: true
+    },
+    isLocal: {
+        type: Boolean,
+        require: true
     }
 
 });

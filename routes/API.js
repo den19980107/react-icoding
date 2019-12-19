@@ -350,12 +350,13 @@ router.get('/getVideoComment/:videoID', function (req, res) {
 
 //delete影片
 router.post('/deleteVideo/:videoID', function (req, res) {
+    // TODO 把 upload chunck 跟 upload file 一起刪掉 現在還沒有刪掉實際的影片檔案
     Video.remove({ _id: req.params.videoID }, function (err) {
         if (err) {
             //console.log(err);
-            res.send('{"error" : "刪除失敗", "status" : 500}');
+            res.sendStatus(500);
         } else {
-            res.send('{"success" : "儲存成功"}');
+            res.sendStatus(200);
         }
     })
 })

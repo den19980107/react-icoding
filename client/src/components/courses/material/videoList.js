@@ -12,11 +12,11 @@ class videoList extends Component {
    render() {
       if (this.props.videos.length) {
          return (
-            <Row gutter={16}>
+            <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "start" }}>
                {this.props.videos.map(video => (
-                  <VideoListItem key={video._id} video={video}></VideoListItem>
+                  <VideoListItem key={video._id} video={video} reflashVideos={this.props.reflashVideos}></VideoListItem>
                ))}
-            </Row>
+            </div>
          );
       } else {
          return (

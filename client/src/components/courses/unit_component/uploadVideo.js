@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Button, Modal } from 'antd';
+import { Button, Modal, Upload, Icon } from 'antd';
 
 class uploadVideo extends Component {
    state = {
@@ -26,6 +26,34 @@ class uploadVideo extends Component {
          visible: false,
       });
    };
+
+   handleChange = e => {
+      let status = e.file.status;
+      switch (status) {
+         case "done":
+            this.props.reflashVideos();
+            Modal.success({
+               content: "上傳成功！",
+               okText: '確認'
+            })
+            break;
+         case "uploading":
+
+            break;
+         case "error":
+            Modal.error({
+               content: "上傳失敗",
+               okText: '確認'
+            })
+            break;
+         case "removed":
+            Modal.info({
+               content: "取消上傳",
+               okText: '確認'
+            })
+            break;
+      }
+   }
    render() {
       return (
          <React.Fragment>
@@ -40,14 +68,23 @@ class uploadVideo extends Component {
                onCancel={this.handleCancel}
             >
                <form>
-                  <div class="form-group">
-                     <label for="exampleInputEmail1">影片名稱</label>
-                     <input type="text" class="form-control" onChange={this.setVideoName} placeholder="請輸入影片名稱" />
+                  <div className="form-group">
+                     <label>影片名稱</label>
+                     <input type="text" className="form-control" onChange={this.setVideoName} placeholder="請輸入影片名稱" />
                   </div>
-                  <div class="form-group">
-                     <label for="exampleInputPassword1">影片網址</label>
-                     <input type="text" class="form-control" onChange={this.setVideoUrl} placeholder="請輸入影片網址" />
+                  <div className="form-group">
+                     <label>影片網址</label>
+                     <input type="text" className="form-control" onChange={this.setVideoUrl} placeholder="請輸入影片網址" />
                   </div>
+                  <Upload
+                     action={`/uploader/unit/${this.props.unitId}/video/local`}
+                     beforeUpload={this.beforeUpload}
+                     onChange={this.handleChange}
+                  >
+                     <Button>
+                        <Icon type="upload" /> Upload
+                     </Button>
+                  </Upload>
                </form>
             </Modal>
          </React.Fragment>

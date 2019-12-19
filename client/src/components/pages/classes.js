@@ -1,21 +1,10 @@
 import React, { Component } from 'react';
 import CourseCard from '../courses/courseCard';
 import { PageHeader } from 'antd';
-import axios from 'axios';
+import Resource from '../util/resource';
+import Spinner from '../util/spinner';
+
 class classes extends Component {
-   state = {
-      classes: []
-   }
-   componentDidMount() {
-      axios.get('/api/getClasses')
-         .then((res) => {
-            let classes = res.data
-            this.setState({ classes })
-         })
-         .catch((error) => {
-            console.log(error.response.data.message)
-         })
-   }
    render() {
       return (
          <div>
@@ -26,9 +15,16 @@ class classes extends Component {
                title={<h3>總開課清單</h3>}
             />
             <div style={{ display: "flex", justifyContent: "start", padding: "1rem" }}>
-               {this.state.classes.map(classInfo => (
-                  <CourseCard key={classInfo._id} id={classInfo._id} classInfo={classInfo}></CourseCard>
-               ))}
+               <Resource
+                  path="/api/getClasses"
+                  render={data => {
+                     if (data.loading) return <Spinner></Spinner>
+                     return data.payload.map(classInfo => (
+                        <CourseCard key={classInfo._id} id={classInfo._id} classInfo={classInfo}></CourseCard>
+                     ))
+                  }}
+               >
+               </Resource>
             </div>
          </div>
       );

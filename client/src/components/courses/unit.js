@@ -89,7 +89,7 @@ class unit extends Component {
             break;
          case "2":
             tabName = "影片"
-            uploadBtn = <UploadVideo></UploadVideo>
+            uploadBtn = <UploadVideo unitId={this.state.id} reflashVideos={this.reflashVideos}></UploadVideo>
             break;
          case "3":
             tabName = "測驗"
@@ -114,7 +114,7 @@ class unit extends Component {
                   <ChapterList chapters={this.state.chapters} reflashChapter={this.reflashChapter}></ChapterList>
                </TabPane>
                <TabPane tab="影片" key="2">
-                  <VideoList videos={this.state.videos}></VideoList>
+                  <VideoList videos={this.state.videos} reflashVideos={this.reflashVideos}></VideoList>
                </TabPane>
                <TabPane tab="測驗" key="3">
                   <TestList tests={this.state.tests}></TestList>
