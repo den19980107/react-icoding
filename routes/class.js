@@ -1143,7 +1143,7 @@ router.delete('/deletevideo/:videoID', ensureAuthenticated, function (req, res) 
 });
 
 //顯示影片內容
-router.get('/showVideo/:id', ensureAuthenticated, function (req, res) {
+router.get('/getVideo/:id', ensureAuthenticated, function (req, res) {
 	let query = {
 		_id: req.params.id
 	}
@@ -1180,7 +1180,7 @@ router.get('/showVideo/:id', ensureAuthenticated, function (req, res) {
 									findvideocommentsID.push(comments[i].userID.toString());
 								}
 								User.find({ _id: findvideocommentsID }, function (err, users) {
-									res.render('video', {
+									res.json({
 										video: video,
 										comments: comments,
 										classinfo: classinfo,

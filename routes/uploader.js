@@ -108,7 +108,6 @@ router.post('/unit/:id/video/:location', upload.any(), function (req, res) {
             let files = req.files;
             files.forEach(file => {
                 if (file.mimetype.startsWith("video/")) {
-                    console.log(file)
                     const unitId = req.params.id;
                     const fileName = file.originalname;
 
@@ -175,7 +174,6 @@ router.get('/video/:vid', function (req, res) {
 function getVideoStream(path, req, res) {
     const stat = fs.statSync(path);
     const fileSize = stat.size;
-    console.log(fileSize)
     const range = req.headers.range;
     if (range) {
         const parts = range.replace(/bytes=/, "").split("-");

@@ -5,12 +5,13 @@ class player extends Component {
    render() {
       if (this.props.showThumbnail) {
          return (
-            <video src={"/uploader/video/" + this.props.id} style={{ width: "100%" }}>
+            <video preload="metadata" style={{ width: "100%", height: "100%" }} >
+               <source src={"/uploader/video/" + this.props.id} type="video/mp4" />
             </video>
          );
       } else {
          return (
-            <video controls autoPlay style={{ width: "100%" }} >
+            <video controls autoPlay controlsList="nodownload" style={{ width: "100%", height: "100%" }} >
                <source src={"/uploader/video/" + this.props.id} type="video/mp4" />
             </video>
          );

@@ -54,39 +54,35 @@ class videoListItem extends Component {
          }
       };
       return (
-         <Card
-            bordered={false}
-            cover={
-               <div onClick={this.showVideo}>
-                  <Player
-                     showThumbnail={true}
-                     id={this.props.video._id}
-                  />
-               </div>
-            }
-            style={{ width: "16rem", height: "13rem" }}
-            bodyStyle={{ padding: "1rem" }}
-         >
-            <div style={{ display: "flex", justifyContent: "space-between", textAlign: "center", lineHeight: "2rem" }}>
-               <p style={{ margin: "0" }}>{this.props.video.videoName}</p>
-               <Dropdown overlay={
-                  <Menu>
-                     <Menu.Item>
-                        <a target="_blank" rel="noopener noreferrer" onClick={this.showRenameVideoModal}>
-                           重新命名
-                     </a>
-                     </Menu.Item>
-                     <Menu.Item>
-                        <a target="_blank" rel="noopener noreferrer" onClick={this.showConfrimModal}>
-                           刪除
-                     </a>
-                     </Menu.Item>
-                  </Menu>
-               }>
-                  <Icon type="more" style={{ padding: "0.5rem", fontSize: "16px" }} id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
-               </Dropdown>
+         <div className="mt-3 mr-3">
+            <div style={{ width: "16rem", height: "9rem", background: "#333" }} onClick={this.showVideo}>
+               <Player
+                  showThumbnail={true}
+                  id={this.props.video._id}
+               />
             </div>
-         </Card>
+            <div style={{ width: "16rem", height: "3rem", background: "white", padding: "0.5rem" }}>
+               <div style={{ display: "flex", justifyContent: "space-between", textAlign: "center", lineHeight: "2rem" }}>
+                  <p style={{ margin: "0" }}>{this.props.video.videoName}</p>
+                  <Dropdown overlay={
+                     <Menu>
+                        <Menu.Item>
+                           <a target="_blank" rel="noopener noreferrer" onClick={this.showRenameVideoModal}>
+                              重新命名
+                     </a>
+                        </Menu.Item>
+                        <Menu.Item>
+                           <a target="_blank" rel="noopener noreferrer" onClick={this.showConfrimModal}>
+                              刪除
+                     </a>
+                        </Menu.Item>
+                     </Menu>
+                  }>
+                     <Icon type="more" style={{ padding: "0.5rem", fontSize: "16px" }} id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                  </Dropdown>
+               </div>
+            </div>
+         </div>
       );
    }
 }

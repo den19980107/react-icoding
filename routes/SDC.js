@@ -137,12 +137,12 @@ router.get('/student/:sid/Quit/class/:cid', ensureAuthenticated, function (req, 
     })
 });
 //使用者對文章留言
-router.get('/user/:uid/comment/chapter/:cid/body/:body', ensureAuthenticated, function (req, res) {
+router.post('/user/:uid/comment/chapter/:cid', function (req, res) {
     recordBehavior(req.user._id, "commentToChapter", req.params.cid);
 
     let userID = req.params.uid;
     let chapterID = req.params.cid;
-    let body = req.params.body;
+    let body = req.body.body;
     let scc = new studentCommentChapter();
     scc.userID = userID;
     scc.userName = req.user.username;
@@ -161,7 +161,7 @@ router.get('/user/:uid/comment/chapter/:cid/body/:body', ensureAuthenticated, fu
     })
 });
 //使用者刪除文章留言
-router.get('/deleteChapterComment/:chapterID/:commentID', function (req, res) {
+router.post('/deleteChapterComment/:chapterID/:commentID', function (req, res) {
     studentCommentChapter.remove({ _id: req.params.commentID }, function (err) {
         if (err) {
             res.sendStatus(500)
@@ -170,12 +170,12 @@ router.get('/deleteChapterComment/:chapterID/:commentID', function (req, res) {
     })
 })
 //使用者對影片留言
-router.get('/user/:uid/comment/video/:vid/body/:body', ensureAuthenticated, function (req, res) {
+router.post('/user/:uid/comment/video/:vid', ensureAuthenticated, function (req, res) {
     recordBehavior(req.user._id, "commentToVideo", req.params.vid);
 
     let userID = req.params.uid;
     let videoID = req.params.vid;
-    let body = req.params.body;
+    let body = req.body.body;
     let userName = req.user.username;
     let scv = new studentCommentVideo();
     scv.userID = userID;
@@ -190,19 +190,19 @@ router.get('/user/:uid/comment/video/:vid/body/:body', ensureAuthenticated, func
 
     scv.save(function (err) {
         if (err) {
-            console.log(err);
+            res.sendStatus(500)
         }
-        res.redirect('/class/showVideo/' + videoID);
+        res.sendStatus(200)
     })
 
 });
 //使用者刪除影片留言
-router.get('/deleteVideoComment/:videoID/:commentID', function (req, res) {
+router.post('/deleteVideoComment/:videoID/:commentID', function (req, res) {
     studentCommentVideo.remove({ _id: req.params.commentID }, function (err) {
         if (err) {
-            console.log(err);
+            res.sendStatus(500)
         }
-        res.redirect('/class/showVideo/' + req.params.videoID)
+        res.sendStatus(200)
     })
 })
 

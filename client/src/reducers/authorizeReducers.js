@@ -26,6 +26,7 @@ export default function (state = initialState, action) {
          }
          break;
       case GET_USER:
+         console.log(initialState.user)
          return {
             ...state,
             user: initialState.user
