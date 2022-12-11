@@ -28,7 +28,7 @@
     "connect-multiparty": "^2.2.0",
     "ejs": "^2.6.1",
     "elessar": "^1.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-fileupload": "^1.1.6",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
